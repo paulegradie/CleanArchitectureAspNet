@@ -1,6 +1,7 @@
 using Microsoft.Extensions.DependencyInjection;
+using Persistence;
 
-namespace Persistence;
+namespace Composition.Persistence;
 
 public static class DatabaseMigrator
 {

@@ -1,4 +1,4 @@
-﻿using Domain.Repositories;
+﻿using Domain.Abstractions.Repositories;
 using Persistence.Abstractions;
 using Persistence.Repositories;
 

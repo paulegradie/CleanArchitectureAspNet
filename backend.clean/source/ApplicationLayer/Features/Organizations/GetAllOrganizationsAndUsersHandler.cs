@@ -1,8 +1,8 @@
 using ApplicationLayer.Abstractions;
 using ApplicationLayer.Contracts.Requests;
 using Client.Contracts.Organizations;
+using Domain.Abstractions.Repositories;
 using Domain.Models;
-using Domain.Repositories;
 using MediatR;
 
 namespace ApplicationLayer.Features.Organizations;

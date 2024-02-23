@@ -1,7 +1,7 @@
 ﻿
 using Domain.Models;
 
-namespace Domain.Repositories;
+namespace Domain.Abstractions.Repositories;
 
 public interface IOrganizationsRepository
 {

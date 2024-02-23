@@ -5,16 +5,19 @@ using Microsoft.Extensions.DependencyInjection;
 using Persistence;
 using Persistence.Tables;
 
-namespace Composition;
+namespace Composition.ServiceCollection;
 
 public static class DatabaseServiceConfiguration
 {
-    public static void ConfigureDatabaseServices(this IServiceCollection serviceCollection, IConfiguration configuration)
+    public static void ConfigureDatabaseServices(this IServiceCollection serviceCollection)
     {
+        var serviceProvider = serviceCollection.BuildServiceProvider();
+        var configuration = serviceProvider.GetRequiredService<IConfiguration>();
+
         serviceCollection
             .AddDbContext<AppDbContext>(
                 opts => { opts.UseSqlServer(configuration.GetConnectionString("ConnectionString")); });
-        
+
         serviceCollection
             .AddIdentity<ApplicationUserRecord, IdentityRole>()
             .AddEntityFrameworkStores<AppDbContext>()

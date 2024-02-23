@@ -1,4 +1,4 @@
-﻿using Domain.Repositories;
+﻿using Domain.Abstractions.Repositories;
 
 namespace Persistence.Abstractions;
 

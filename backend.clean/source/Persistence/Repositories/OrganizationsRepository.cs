@@ -1,6 +1,6 @@
 ﻿using Domain.Abstractions;
+using Domain.Abstractions.Repositories;
 using Domain.Models;
-using Domain.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Persistence.Services;
 using Persistence.Tables;

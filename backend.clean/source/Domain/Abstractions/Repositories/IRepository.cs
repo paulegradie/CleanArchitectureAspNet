@@ -1,4 +1,4 @@
-﻿namespace Domain.Repositories;
+﻿namespace Domain.Abstractions.Repositories;
 
 public interface IRepository<TEntity> where TEntity : class
 {

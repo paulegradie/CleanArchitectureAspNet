@@ -1,6 +1,4 @@
-﻿
-
-using Autofac;
+﻿using Autofac;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Persistence;
@@ -8,7 +6,7 @@ using Persistence.Abstractions;
 using Persistence.EntityFramework;
 using Persistence.Services;
 
-namespace Composition;
+namespace Composition.Autofac;
 
 public class PersistenceModule : Module
 {

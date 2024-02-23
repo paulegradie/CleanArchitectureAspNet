@@ -3,23 +3,25 @@ using System.Security.Claims;
 using System.Text;
 using Authentication.Abstractions;
 using Authentication.Abstractions.AccessPolicies;
+using Authentication.Options;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 
 namespace Authentication.AccessPolicies;
 
 public class Jwt : IJwt
 {
-    private readonly IConfiguration configuration;
+    private readonly string jwtKey;
 
-    public Jwt(IConfiguration configuration)
+    public Jwt(IOptions<AuthenticationOptions> authOptions)
     {
-        this.configuration = configuration;
+        jwtKey = authOptions.Value.JwtKey;
     }
 
     public string GenerateJwtToken(bool isAdmin, string userName)
     {
-        var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration.Jwt()));
+        var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtKey));
         var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
 
         var claims = new List<Claim>

@@ -1,35 +1,28 @@
+using System.Reflection;
 using Api.Middleware;
-using Api.Registrations;
-using ApplicationLayer.Registrations;
 using Authentication.Abstractions;
 using Autofac.Extensions.DependencyInjection;
 using Composition;
-using Persistence;
+using Composition.Persistence;
 
 try
 {
     var builder = WebApplication.CreateBuilder(args);
+    builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory());
+
+    // TODO: Get assemblies more precisely.
     builder.Services.AddControllers();
     builder.Services.AddHttpContextAccessor();
     builder.Services.AddSwaggerGen();
-
-    builder.Services.ConfigureDatabaseServices(builder.Configuration);
-
-    builder.Services.ConfigureAuthentication(builder.Configuration);
-    builder.Services.ConfigureRolePolicies();
-    builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory());
     builder.Services.AddHttpContextAccessor();
 
-    var assemblies = AppDomain.CurrentDomain.GetAssemblies();
-    builder.Services.RegisterApplicationLayerHandlers(assemblies);
+    builder.Services.RegisterServiceProviders();
+    builder.Host.ConfigureRegistrations();
 
     builder.Logging.ClearProviders();
     builder.Logging.AddConsole();
     builder.Logging.AddDebug();
 
-
-    builder.Environment.EnvironmentName = "Development"; //builder.Configuration.Environment();
-    builder.Host.ConfigureRegistrations();
     var app = builder.Build();
 
     app.Services.EnsureAndMigrateDatabase();

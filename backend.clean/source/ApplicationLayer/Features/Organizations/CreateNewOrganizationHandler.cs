@@ -1,6 +1,6 @@
 using ApplicationLayer.Contracts.Requests;
 using ApplicationLayer.Contracts.Responses;
-using Domain.Repositories;
+using Domain.Abstractions.Repositories;
 using MediatR;
 
 namespace ApplicationLayer.Features.Organizations;

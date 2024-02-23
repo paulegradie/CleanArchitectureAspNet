@@ -1,7 +1,7 @@
 ﻿using Autofac;
 using Domain.Abstractions;
 
-namespace Composition;
+namespace Composition.Autofac;
 
 public class DomainModule : Module
 {

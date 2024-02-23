@@ -4,7 +4,7 @@ using Authentication.Abstractions.AccessPolicies;
 using Authentication.AccessPolicies;
 using Autofac;
 
-namespace Composition;
+namespace Composition.Autofac;
 
 public class AuthenticationModule : Module
 {
