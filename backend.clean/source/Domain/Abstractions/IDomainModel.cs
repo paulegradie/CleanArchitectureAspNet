@@ -1,5 +1,5 @@
 ﻿namespace Domain.Abstractions;
 
-public interface IDomainModel
+public class DomainModel
 {
 }
