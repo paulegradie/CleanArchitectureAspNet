@@ -11,15 +11,15 @@ public class IntegrationTest : IAsyncLifetime
 {
     private IDbContextTransaction transaction = null!;
 
-    protected IntegrationTest()
-    {
-        Server = new Server(); // if we want to share the server within a class, use IClassFixture approach instead
-        Logger = Server.Services.GetRequiredService<ILogger<IntegrationTest>>();
-
-        var client = Server.CreateClient();
-        Client = new ServerClient(client);
-        CancellationToken = new CancellationTokenSource(TimeSpan.FromMinutes(5)).Token;
-    }
+    // protected IntegrationTest()
+    // {
+    // Server = new Server(); // if we want to share the server within a class, use IClassFixture approach instead
+    // Logger = Server.Services.GetRequiredService<ILogger<IntegrationTest>>();
+    //
+    // var client = Server.CreateClient();
+    // Client = new ServerClient(client);
+    // CancellationToken = new CancellationTokenSource(TimeSpan.FromMinutes(5)).Token;
+    // }
 
     private Server Server { get; set; }
 
@@ -27,10 +27,19 @@ public class IntegrationTest : IAsyncLifetime
 
     protected ServerClient Client { get; set; }
 
-    protected CancellationToken CancellationToken { get; set; }
-
-    public async Task InitializeAsync()
+    protected CancellationToken CancellationToken { get; set; } =
+        new CancellationTokenSource(TimeSpan.FromMinutes(5)).Token;
+    
+    public virtual async Task InitializeAsync()
     {
+        Server = new Server();
+
+        Logger = Server.Services.GetRequiredService<ILogger<IntegrationTest>>();
+
+        var client = Server.CreateClient();
+        Client = new ServerClient(client);
+        CancellationToken = new CancellationTokenSource(TimeSpan.FromMinutes(5)).Token;
+
         // var db = await ConfigureAndSeedDatabase();
         var db = Server.Services.GetRequiredService<AppDbContext>();
         // await db.Database.EnsureDeletedAsync(CancellationToken);
@@ -48,7 +57,7 @@ public class IntegrationTest : IAsyncLifetime
     //     return db;
     // }
 
-    public async Task DisposeAsync()
+    public virtual async Task DisposeAsync()
     {
         if (transaction is not null)
         {
