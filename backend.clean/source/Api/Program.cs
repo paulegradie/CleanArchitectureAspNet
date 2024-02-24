@@ -1,4 +1,3 @@
-using System.Reflection;
 using Api.Middleware;
 using Authentication.Abstractions;
 using Autofac.Extensions.DependencyInjection;

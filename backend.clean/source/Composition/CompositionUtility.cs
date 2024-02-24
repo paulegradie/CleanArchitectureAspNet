@@ -1,6 +1,6 @@
-﻿using System.Reflection;
-using ApplicationLayer;
+﻿using ApplicationLayer;
 using Autofac;
+using Composition.Autofac;
 using Composition.ServiceCollection;
 using FluentValidation;
 using Microsoft.AspNetCore.Builder;
@@ -23,10 +23,14 @@ public static class CompositionUtility
         builder.ConfigureContainer<ContainerBuilder>(containerBuilder =>
         {
             var assemblies = AppDomain.CurrentDomain.GetAssemblies();
-            containerBuilder.RegisterAssemblyModules(assemblies);
             containerBuilder.RegisterAssemblyTypes(assemblies)
                 .Where(t => t.IsClosedTypeOf(typeof(IValidator<>)))
                 .AsImplementedInterfaces();
+
+            containerBuilder.RegisterModule<ApplicationLayerModule>();
+            containerBuilder.RegisterModule<AuthenticationModule>();
+            containerBuilder.RegisterModule<DomainModule>();
+            containerBuilder.RegisterModule<PersistenceModule>();
         });
     }
 }

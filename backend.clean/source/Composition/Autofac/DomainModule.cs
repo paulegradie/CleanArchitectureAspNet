@@ -7,8 +7,8 @@ public class DomainModule : Module
 {
     protected override void Load(ContainerBuilder builder)
     {
-        var assemblies = AppDomain.CurrentDomain.GetAssemblies();
         base.Load(builder);
+        var assemblies = AppDomain.CurrentDomain.GetAssemblies();
         builder
             .RegisterAssemblyTypes(assemblies)
             .AsClosedTypesOf(typeof(IMapToTheDomain<,>))
